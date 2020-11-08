@@ -108,7 +108,8 @@ img {
 
 label {
   color: rgb(0, 0, 0);
-  font-family: 'Secular One', sans-serif;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
   padding: 10px;
   margin: 10px;
 }
@@ -153,6 +154,10 @@ label {
     width: 25%;
 }
 
+.coluna-33 {
+  width: 33%;
+}
+
 .coluna-75 {
   width: 75%;
 }
@@ -171,3 +176,11 @@ label {
   }
 
 
+.trofeu {
+  border-radius: 0%;
+  width: 150px;
+  height: 150px;
+  
+  margin-left: 15%;
+}
+  

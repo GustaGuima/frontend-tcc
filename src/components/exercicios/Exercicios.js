@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 import { encontrarExercicio } from '../ExercicioFunctions'
 import { questaoIncorreta } from '../UserFunctions'
 import { adicionarExperiencia } from '../UserFunctions'
 import { Redirect } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
-import CorrectSound from '../sounds/Correct_answer.wav'
 
 class Exercicios extends Component {
 
@@ -15,7 +13,7 @@ class Exercicios extends Component {
         this.state = {
             //DADOS EXERCICIO
             id: localStorage.exercicioToken,
-            titulo: 'teste',
+            titulo: '',
             nivel: 1,
             enunciado: '',
             respostaCorreta: '',
@@ -24,6 +22,7 @@ class Exercicios extends Component {
             respostaIncorreta2: '',
             respostaIncorreta3: '',
             experiencia_fornecida: 0,
+            pontuacao: 0,
 
             //Dados Usuario
             email: '',
@@ -44,7 +43,6 @@ class Exercicios extends Component {
             const token = localStorage.exercicioTokenData
             if (token) {
                 const decoded = jwt_decode(token)
-                console.log(decoded.resposta_incorreta3)
                 let respostas = [decoded.resposta, decoded.resposta_incorreta1, decoded.resposta_incorreta2, decoded.resposta_incorreta3]
                 respostas.sort(() => .5 - Math.random())
                 this.setState({
@@ -57,7 +55,8 @@ class Exercicios extends Component {
                     respostaIncorreta1: respostas[1],
                     respostaIncorreta2: respostas[2],
                     respostaIncorreta3: respostas[3],
-                    experiencia_fornecida: decoded.experiencia_fornecida
+                    experiencia_fornecida: decoded.experiencia_fornecida,
+                    pontuacao: decoded.pontuacao_fornecida
                 })
             }
         })
@@ -83,7 +82,8 @@ class Exercicios extends Component {
 
             const user = {
                 email: this.state.email,
-                experiencia: this.state.experiencia_fornecida
+                experiencia: this.state.experiencia_fornecida,
+                pontuacao: this.state.pontuacao
             }
             adicionarExperiencia(user)
         } else {

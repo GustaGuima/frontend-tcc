@@ -1,4 +1,3 @@
-import axios from 'axios'
 import api from '../services/api'
 
 export const register = newUser => {
@@ -66,16 +65,14 @@ export const ranking = alunos => {
         console.log(err)
     })
 }
-
-export const encontrarUsuario = user => {
+export const encontrarUsuario = alunos => {
     return api
-    .get('users/findUser', {
-        email: user.email
-    })
-    .then(res => {
+    .get('users/encontrarUsuario', {
+        email: alunos.email
+    }).then(res => {
         return res.data
     })
-    .catch(err =>{
+    .catch(err => {
         console.log(err)
     })
 }

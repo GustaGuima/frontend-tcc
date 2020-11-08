@@ -39,7 +39,7 @@ class Profile extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        
+
         login(user).then(user => {
             console.log('chego aq')
             const token = localStorage.usertoken
@@ -55,14 +55,14 @@ class Profile extends Component {
             }
         }).catch(err => {
             console.log(err)
-        })  
+        })
     }
 
-    changeRating( newRating, name ) {
+    changeRating(newRating, name) {
         this.setState({
-          rating: newRating
+            rating: newRating
         });
-      }
+    }
 
     render() {
         const profile = (
@@ -98,7 +98,7 @@ class Profile extends Component {
                             <tr>
                                 <td>Tentativas</td>
                                 <td><StarRatings
-                                    rating={((Number.isInteger(this.state.tentativas) * 10 )/Number.isInteger(this.state.questoes_respondidas))/5}
+                                    rating={((Number.isInteger(this.state.tentativas) * 10) / Number.isInteger(this.state.questoes_respondidas)) / 5}
                                     starRatedColor="aqua"
                                     changeRating={this.changeRating}
                                     numberOfStars={5}
@@ -109,8 +109,42 @@ class Profile extends Component {
                     </table>
                 </div>
                 <div className='jumbotron mt-5'>
+                    <div class="linha">
+                        <div class="coluna-33">
+                            <div class="card" style={{ width: 230 }}>
+                                <div class="card" style={{ width: 230 }}>
+                                    <img class="card-img-top trofeu" src={(this.state.questoes_respondidas >= 6) ? './img/trofeu_bronze.png' : './img/trofeu_escondido.png'} alt="Card image cap"></img>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Questões respondidas corretamente {this.state.questoes_respondidas}/6</h5>
+                                        <p class="card-text">Responda corretamente 6 questões para desbloquear este trofeu.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coluna-33 pl-3">
+                            <div class="card" style={{ width: 230 }}>
+                                <div class="card" style={{ width: 230 }}>
+                                    <img class="card-img-top trofeu" src={(this.state.questoes_respondidas >= 12) ? './img/trofeu_prata.png' : './img/trofeu_escondido.png'} alt="Card image cap"></img>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Questões respondidas corretamente {this.state.questoes_respondidas}/12</h5>
+                                        <p class="card-text">Responda corretamente 12 questões para desbloquear este trofeu.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coluna-33 pl-5">
+                            <div class="card" style={{ width: 230 }}>
+                                <div class="card" style={{ width: 230 }}>
+                                    <img class="card-img-top trofeu" src={(this.state.questoes_respondidas >= 24) ? './img/trofeu_ouro.png' : './img/trofeu_escondido.png'} alt="Card image cap"></img>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Questões respondidas corretamente {this.state.questoes_respondidas}/24</h5>
+                                        <p class="card-text">Responda corretamente 24 questões para desbloquear este trofeu.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         )
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
 import { withRouter } from 'react-router-dom'
-import { Avatar } from '@material-ui/core'
 
 
 class Navbar extends Component {
@@ -10,6 +9,7 @@ class Navbar extends Component {
         super()
         this.state = {
             nome: '',
+            email:'',
             nivel: 1,
             experiencia: 0
         }
