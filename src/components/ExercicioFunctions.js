@@ -1,7 +1,8 @@
 import axios from 'axios'
+import api from '../services/api'
 
 export const encontrarExercicio = exercicio => {
-    return axios
+    return api
     .post('exercicio/exercicio', { 
         id: exercicio.id
     })

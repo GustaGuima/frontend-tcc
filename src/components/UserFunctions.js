@@ -1,7 +1,8 @@
 import axios from 'axios'
+import api from '../services/api'
 
 export const register = newUser => {
-    return axios
+    return api
     .post('users/register', {
         nome: newUser.nome,
         sobrenome: newUser.sobrenome,
@@ -15,7 +16,7 @@ export const register = newUser => {
 }
 
 export const login = user => {
-    return axios
+    return api
     .post('users/login', {
         email: user.email,
         password: user.password
@@ -30,7 +31,7 @@ export const login = user => {
 }
 
 export const adicionarExperiencia = experiencia => {
-    return axios
+    return api
     .put('users/experiencia', {
         email: experiencia.email,
         experiencia : experiencia.experiencia,
@@ -44,7 +45,7 @@ export const adicionarExperiencia = experiencia => {
 }
 
 export const questaoIncorreta = experiencia => {
-    return axios
+    return api
     .put('users/experiencia/tentativas', {
         email: experiencia.email
     }).then(res => {
@@ -56,7 +57,7 @@ export const questaoIncorreta = experiencia => {
 }
 
 export const ranking = alunos => {
-    return axios
+    return api
     .get('users/alunos/ranking', {
     }).then(res => {
         return res.data
@@ -67,7 +68,7 @@ export const ranking = alunos => {
 }
 
 export const encontrarUsuario = user => {
-    return axios
+    return api
     .get('users/findUser', {
         email: user.email
     })
