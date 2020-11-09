@@ -30,15 +30,6 @@ class Home extends Component {
         const token = localStorage.usertoken
         if (token) {
             const decoded = jwt_decode(token)
-            
-            const user = {
-                email: decoded.email
-            }
-
-            encontrarUsuario(user).then(user => {
-                
-            })
-
             this.setState({
                 nome: decoded.nome,
                 nivel: decoded.nivel,

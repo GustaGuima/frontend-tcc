@@ -103,14 +103,14 @@ class Profile extends Component {
                                 loader={<div>Loading Chart</div>}
                                 data={[
                                     ['Exercicios', 'Estatistica'],
-                                    ['Tentativas', this.state.tentativas],
+                                    ['Tentativas', this.state.tentativas - this.state.questoes_respondidas],
                                     ['Corretas', this.state.questoes_respondidas],
                                 ]}
                                 options={{
                                     legend: 'none',
                                     pieSliceText: 'label',
                                     title: '',
-                                    pieStartAngle: this.state.tentativas,
+                                    pieStartAngle: this.state.tentativas/this.state.questoes_respondidas,
                                 }}
                                 rootProps={{ 'data-testid': '4' }}
                             />
