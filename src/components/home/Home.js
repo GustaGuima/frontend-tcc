@@ -161,13 +161,13 @@ class Home extends Component {
                                                     <div class="col-sm mt-5">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' value="1" onClick={() => localStorage.setItem('exercicioToken', 7)}><img src='./img/exercicio1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 1</label>
+                                                            <label class='pl-4'>Exercicio 7</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm mt-5 ">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 8)}><img src='./img/exercicio2-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 2</label>
+                                                            <label class='pl-4'>Exercicio 8</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,25 +175,25 @@ class Home extends Component {
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 9)}><img src='./img/exercicio3-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 3</label>
+                                                            <label class='pl-4'>Exercicio 9</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 10)}><img src='./img/exercicio4-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 4</label>
+                                                            <label class='pl-4'>Exercicio 10</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button href='/exercicio' class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 11)}><img src='./img/exercicio5-nivel1.jpg' alt=''></img></button></a>
-                                                        <label class='pl-4'>Exercicio 5</label>
+                                                        <label class='pl-4'>Exercicio 11</label>
                                                     </div>
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 2) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 12)}><img src='./img/exercicio6-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 6</label>
+                                                            <label class='pl-4'>Exercicio 12</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -219,13 +219,13 @@ class Home extends Component {
                                                     <div class="col-sm mt-5">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' value="1" onClick={() => localStorage.setItem('exercicioToken', 13)}><img src='./img/exercicio1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 1</label>
+                                                            <label class='pl-4'>Exercicio 13</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm mt-5 ">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 14)}><img src='./img/exercicio2-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 2</label>
+                                                            <label class='pl-4'>Exercicio 14</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -233,25 +233,25 @@ class Home extends Component {
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 15)}><img src='./img/exercicio3-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 3</label>
+                                                            <label class='pl-4'>Exercicio 15</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 16)}><img src='./img/exercicio4-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 4</label>
+                                                            <label class='pl-4'>Exercicio 16</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button href='/exercicio' class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 17)}><img src='./img/exercicio5-nivel1.jpg' alt=''></img></button></a>
-                                                        <label class='pl-4'>Exercicio 5</label>
+                                                        <label class='pl-4'>Exercicio 17</label>
                                                     </div>
                                                     <div class="col-sm mt-2">
                                                         <a class={(this.state.nivel >= 3) ? '' : 'isDisabled'} href='/exercicio'><button class='button image-button' type='button' onClick={() => localStorage.setItem('exercicioToken', 18)}><img src='./img/exercicio6-nivel1.jpg' alt=''></img></button></a>
                                                         <div>
-                                                            <label class='pl-4'>Exercicio 6</label>
+                                                            <label class='pl-4'>Exercicio 18</label>
                                                         </div>
                                                     </div>
                                                 </div>

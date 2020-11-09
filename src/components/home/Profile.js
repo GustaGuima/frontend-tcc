@@ -37,28 +37,6 @@ class Profile extends Component {
                 pontuacao: decoded.pontuacao
             })
         }
-
-        const user = {
-            email: this.state.email,
-            password: this.state.password
-        }
-
-        login(user).then(user => {
-            const token = localStorage.usertoken
-            if (token) {
-                const decoded = jwt_decode(token)
-                this.setState({
-                    nome: decoded.nome,
-                    email: decoded.email,
-                    senha: decoded.password,
-                    nivel: decoded.nivel,
-                    experiencia: decoded.experiencia,
-                    pontuacao: decoded.pontuacao_fornecida
-                })
-            }
-        }).catch(err => {
-            console.log(err)
-        })
     }
 
     changeRating(newRating, name) {
@@ -73,9 +51,16 @@ class Profile extends Component {
         const profile = (
             <div className='container p-5'>
                 <Navbar />
-                <div style={{paddingTop:60}}>
-                    <h3>Seus Dados</h3>
+                <div class="linha">
+                    <div class="coluna-75" style={{paddingTop:100}}>
+                        <h3>Seus Dados</h3>
+                    </div>
+
+                    <div class="coluna-25" style={{paddingTop:100}}>
+                        <h3>Refaça o Login para atualizar</h3>
+                    </div>
                 </div>
+
                 <div className='jumbotron mt-5'>
                     <div class="linha">
                         <div class="coluna-75">
@@ -110,7 +95,7 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div class="linha">
-                        <div class="coluna-100" style={{paddingLeft: 200}}>
+                        <div class="coluna-100" style={{ paddingLeft: 200 }}>
                             <Chart
                                 width={'500px'}
                                 height={'300px'}
@@ -162,10 +147,10 @@ class Profile extends Component {
                         <div class="coluna-33 pl-5">
                             <div class="card" style={{ width: 230 }}>
                                 <div class="card" style={{ width: 230 }}>
-                                    <img class="card-img-top trofeu" src={(this.state.questoes_respondidas >= 24) ? './img/trofeu_ouro.png' : './img/trofeu_escondido.png'} alt="Card image cap"></img>
+                                    <img class="card-img-top trofeu" src={(this.state.questoes_respondidas >= 18) ? './img/trofeu_ouro.png' : './img/trofeu_escondido.png'} alt="Card image cap"></img>
                                     <div class="card-body">
-                                        <h5 class="card-title">Questões respondidas corretamente {this.state.questoes_respondidas}/24</h5>
-                                        <p class="card-text">Responda corretamente 24 questões para desbloquear este trofeu.</p>
+                                        <h5 class="card-title">Questões respondidas corretamente {this.state.questoes_respondidas}/18</h5>
+                                        <p class="card-text">Responda corretamente 18 questões para desbloquear este trofeu.</p>
                                     </div>
                                 </div>
                             </div>
