@@ -34,7 +34,8 @@ export const adicionarExperiencia = experiencia => {
     .put('users/experiencia', {
         email: experiencia.email,
         experiencia : experiencia.experiencia,
-        pontuacao: experiencia.pontuacao
+        pontuacao: experiencia.pontuacao,
+        exercicio_id: experiencia.exercicio_id
     }).then(res => {
         return res.data
     })

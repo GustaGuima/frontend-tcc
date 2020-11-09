@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
 import { Redirect } from 'react-router-dom'
 import Navbar from '../partials/Navbar'
-import StarRatings from 'react-star-ratings';
 import { login } from '../UserFunctions'
+import { Chart } from 'react-google-charts'
+
 
 class Profile extends Component {
 
@@ -16,7 +17,8 @@ class Profile extends Component {
             nivel: 1,
             experiencia: 0,
             questoes_respondidas: 0,
-            tentativas: 0
+            tentativas: 0,
+            pontuacao: 0
         }
     }
 
@@ -31,7 +33,8 @@ class Profile extends Component {
                 nivel: decoded.nivel,
                 experiencia: decoded.experiencia,
                 questoes_respondidas: decoded.questoes_respondidas,
-                tentativas: decoded.tentativas
+                tentativas: decoded.tentativas,
+                pontuacao: decoded.pontuacao
             })
         }
 
@@ -41,7 +44,6 @@ class Profile extends Component {
         }
 
         login(user).then(user => {
-            console.log('chego aq')
             const token = localStorage.usertoken
             if (token) {
                 const decoded = jwt_decode(token)
@@ -50,7 +52,8 @@ class Profile extends Component {
                     email: decoded.email,
                     senha: decoded.password,
                     nivel: decoded.nivel,
-                    experiencia: decoded.experiencia
+                    experiencia: decoded.experiencia,
+                    pontuacao: decoded.pontuacao_fornecida
                 })
             }
         }).catch(err => {
@@ -64,49 +67,73 @@ class Profile extends Component {
         });
     }
 
+
+
     render() {
         const profile = (
             <div className='container p-5'>
                 <Navbar />
+                <div style={{paddingTop:60}}>
+                    <h3>Seus Dados</h3>
+                </div>
                 <div className='jumbotron mt-5'>
-                    <table className='table col-md-12 mx-auto'>
-                        <tbody>
-                            <tr>
-                                <td>Nome</td>
-                                <td>{this.state.nome}</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{this.state.email}</td>
-                            </tr>
-                            <tr>
-                                <td>Nivel</td>
-                                <td>{this.state.nivel}</td>
-                            </tr>
-                            <tr>
-                                <td>Experiencia</td>
-                                <td>{this.state.experiencia}</td>
-                            </tr>
-                            <tr>
-                                <td>Questões Respondidas</td>
-                                <td>{this.state.questoes_respondidas}</td>
-                            </tr>
-                            <tr>
-                                <td>Tentativas</td>
-                                <td>{this.state.tentativas}</td>
-                            </tr>
-                            <tr>
-                                <td>Tentativas</td>
-                                <td><StarRatings
-                                    rating={((Number.isInteger(this.state.tentativas) * 10) / Number.isInteger(this.state.questoes_respondidas)) / 5}
-                                    starRatedColor="aqua"
-                                    changeRating={this.changeRating}
-                                    numberOfStars={5}
-                                    name='rating'
-                                /></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="linha">
+                        <div class="coluna-75">
+                            <h2>Nome: {this.state.nome}</h2>
+                        </div>
+                        <div class="coluna-25">
+                            <h2 style={{ color: "green" }}>Pontuação: {this.state.pontuacao}</h2>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="coluna-75">
+                            <h2>E-mail: {this.state.email}</h2>
+                        </div>
+                        <div class="coluna-25">
+                            <h2 style={{ color: "green" }}>Nivel: {this.state.nivel}</h2>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="coluna-75">
+                        </div>
+                        <div class="coluna-25">
+                            <h2 style={{ color: "green" }}>Experiencia: {this.state.experiencia}</h2>
+                        </div>
+                    </div>
+                    <hr class="my-4"></hr>
+                    <div class="linha">
+                        <div class="coluna-75">
+                            <h3>Questoes Respondidas: {this.state.questoes_respondidas}</h3>
+                        </div>
+                        <div class="coluna-25">
+                            <h3>Tentativas: {this.state.tentativas}</h3>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="coluna-100" style={{paddingLeft: 200}}>
+                            <Chart
+                                width={'500px'}
+                                height={'300px'}
+                                chartType="PieChart"
+                                loader={<div>Loading Chart</div>}
+                                data={[
+                                    ['Exercicios', 'Estatistica'],
+                                    ['Tentativas', this.state.tentativas],
+                                    ['Corretas', this.state.questoes_respondidas],
+                                ]}
+                                options={{
+                                    legend: 'none',
+                                    pieSliceText: 'label',
+                                    title: '',
+                                    pieStartAngle: this.state.tentativas,
+                                }}
+                                rootProps={{ 'data-testid': '4' }}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Seus Trofeus</h3>
                 </div>
                 <div className='jumbotron mt-5'>
                     <div class="linha">

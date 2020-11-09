@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { encontrarExercicio } from '../ExercicioFunctions'
+import { exercicioRespondido } from '../ExercicioFunctions'
 import { questaoIncorreta } from '../UserFunctions'
 import { adicionarExperiencia } from '../UserFunctions'
 import { Redirect } from 'react-router-dom'
@@ -23,6 +24,7 @@ class Exercicios extends Component {
             respostaIncorreta3: '',
             experiencia_fornecida: 0,
             pontuacao: 0,
+            respondido: 0,
 
             //Dados Usuario
             email: '',
@@ -56,7 +58,8 @@ class Exercicios extends Component {
                     respostaIncorreta2: respostas[2],
                     respostaIncorreta3: respostas[3],
                     experiencia_fornecida: decoded.experiencia_fornecida,
-                    pontuacao: decoded.pontuacao_fornecida
+                    pontuacao: decoded.pontuacao_fornecida,
+                    respondido: decoded.respondido
                 })
             }
         })
@@ -83,12 +86,18 @@ class Exercicios extends Component {
             const user = {
                 email: this.state.email,
                 experiencia: this.state.experiencia_fornecida,
-                pontuacao: this.state.pontuacao
+                pontuacao: this.state.pontuacao,        
             }
             adicionarExperiencia(user)
+
+            const exercicio = {
+                id: this.state.id       
+            }
+            exercicioRespondido(exercicio)
+
         } else {
             const user = {
-                email: this.state.email,
+                email: this.state.email
             }
             questaoIncorreta(user)
         }
@@ -126,14 +135,23 @@ class Exercicios extends Component {
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">{(this.state.estaCorreta === this.state.respostaCorreta) ? 'Resposta Correta' : 'Resposta Incorreta'}</h5>
+                                    <h5 class="modal-title" style={((this.state.respondido === 1)? {color: "red"} : (this.state.estaCorreta === this.state.respostaCorreta) ? {color: "green"} : {color: "red"})} id="exampleModalLongTitle">{((this.state.respondido === 1)? 'Exercicio ja resolvido' : (this.state.estaCorreta === this.state.respostaCorreta) ? 'Resposta Correta' : 'Resposta Incorreta')}</h5>
+                                    <img class='resposta' src={(this.state.estaCorreta === this.state.respostaCorreta) ? './img/trofeu_resposta_correta.png' : './img/resposta_errada.png'}></img>
                                 </div>
                                 <div class="modal-body">
-                                    {(this.state.estaCorreta === this.state.respostaCorreta) ? this.state.experiencia_fornecida + ' de experiencia recebida' : 'Tente novamente ou escolha outro exercício'}
+                                    <h5>{((this.state.respondido === 1)? 'Exercicio ja resolvido, retorne ao menu e selecione outro.' :(this.state.estaCorreta === this.state.respostaCorreta) ? 'Parabéns, você respondeu corretamente.' : 'Que pena, você respondeu incorretamente. Tente novamente para receber as recompensas.')}</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Suas recompensas:</h5>
+                                    <h5 style={((this.state.respondido === 1)? {color: "red"} : (this.state.estaCorreta === this.state.respostaCorreta) ? {color: "green"} : {color: "red"})}>{((this.state.respondido === 1)? 'Você ja resgatou as recompensas dessa questão, selecione outra questão.' : (this.state.estaCorreta === this.state.respostaCorreta) ? this.state.experiencia_fornecida + ' de Experiência recebida' : 'Sem Recompensas, Tente novamente.')}</h5>
+                                    <h5 style={((this.state.respondido === 1)? {color: "red"} : (this.state.estaCorreta === this.state.respostaCorreta) ? {color: "green"} : {color: "red"})}>{((this.state.respondido === 1)? '' : (this.state.estaCorreta === this.state.respostaCorreta) ? this.state.pontuacao + ' de Pontuação recebida' : '')}</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <h6>{(this.state.estaCorreta === this.state.respostaCorreta) ? 'Continue nesse ritmo' : ''}</h6>
                                 </div>
                                 <div class="modal-footer">
                                     <a href='/home'><button type='button' class='btn btn-dark'>Sair</button></a>
-                                    {(this.state.estaCorreta === this.state.respostaCorreta) ? <a href='/exercicio'><button type='button' class='btn btn-success' onClick={() => localStorage.setItem('exercicioToken', this.state.id += 1)}>Proxima</button></a> : <a href='/exercicio'><button type='button' class='btn btn-danger'>Tente Novamente</button></a>}
+                                    {((this.state.respondido === 1)? '' : (this.state.estaCorreta === this.state.respostaCorreta) ? <a href='/exercicio'><button type='button' class='btn btn-success' onClick={() => localStorage.setItem('exercicioToken', this.state.id += 1)}>Proxima</button></a> : <a href='/exercicio'><button type='button' class='btn btn-danger'>Tente Novamente</button></a>)}
                                 </div>
                             </div>
                         </div>

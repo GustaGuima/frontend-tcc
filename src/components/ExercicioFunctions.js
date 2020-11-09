@@ -13,3 +13,14 @@ export const encontrarExercicio = exercicio => {
     })
 }
 
+export const exercicioRespondido = experiencia => {
+    return api
+    .put('exercicio/exercicioRespondido', {
+        id: experiencia.id
+    }).then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}

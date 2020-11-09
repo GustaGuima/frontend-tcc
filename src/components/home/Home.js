@@ -22,7 +22,6 @@ class Home extends Component {
 
 
         ranking().then(alunos => {  
-            console.log(alunos)
             this.setState({
                 lists: alunos
             })    
@@ -31,13 +30,13 @@ class Home extends Component {
         const token = localStorage.usertoken
         if (token) {
             const decoded = jwt_decode(token)
-            console.log(decoded)
+            
             const user = {
                 email: decoded.email
             }
-            
+
             encontrarUsuario(user).then(user => {
-                console.log(user)
+                
             })
 
             this.setState({
@@ -66,7 +65,6 @@ class Home extends Component {
                             <div>
                                 <div class='pt-5'>
                                     <h2>Nivel 1</h2>
-                                    <h2>{this.state.email}</h2>
                                 </div>
                                 <grid className='container-box' direction="row" justify="center">
                                     <div className='flex-box container-box'>
