@@ -70,24 +70,6 @@ class Register extends Component {
                                         onChange={this.onChange}
                                     />
                                 </div>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <div className="input-group-text">
-                                            <input type="radio" name="professor"
-                                                value={true}
-                                                onChange={this.onChange} />
-                                        </div>
-                                    </div>
-                                    <label htmlFor="professor" className='form-control'>Professor</label>
-                                    <div className="input-group-prepend">
-                                        <div className="input-group-text">
-                                            <input type="radio" name="professor"
-                                                value={false}
-                                                onChange={this.onChange} />
-                                        </div>
-                                    </div>
-                                    <label htmlFor="professor" className='form-control'>Aluno</label>
-                                </div>
                                 <div className='text-center'>
                                     <button
                                         type="submit"

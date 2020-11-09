@@ -90,11 +90,6 @@ class Exercicios extends Component {
             }
             adicionarExperiencia(user)
 
-            const exercicio = {
-                id: this.state.id       
-            }
-            exercicioRespondido(exercicio)
-
         } else {
             const user = {
                 email: this.state.email
