@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
 import { Redirect } from 'react-router-dom'
 import Navbar from '../partials/Navbar'
-import { login } from '../UserFunctions'
+import {encontrarUsuario} from '../UserFunctions'
 import { Chart } from 'react-google-charts'
 
 
@@ -26,15 +26,25 @@ class Profile extends Component {
         const token = localStorage.usertoken
         if (token) {
             const decoded = jwt_decode(token)
+
+            const user = {
+                email: decoded.email
+            }
+
+            encontrarUsuario(user).then(res => {
+                this.setState({
+                    nome: res.nome,
+                    email: res.email,
+                    nivel: res.nivel,
+                    experiencia: res.experiencia,
+                    questoes_respondidas: res.questoes_respondidas,
+                    tentativas: res.tentativas,
+                    pontuacao: res.pontuacao
+                })
+            })
+
             this.setState({
-                nome: decoded.nome,
-                email: decoded.email,
-                password: decoded.password,
-                nivel: decoded.nivel,
-                experiencia: decoded.experiencia,
-                questoes_respondidas: decoded.questoes_respondidas,
-                tentativas: decoded.tentativas,
-                pontuacao: decoded.pontuacao
+          
             })
         }
     }
@@ -54,10 +64,6 @@ class Profile extends Component {
                 <div class="linha">
                     <div class="coluna-75" style={{paddingTop:100}}>
                         <h3>Seus Dados</h3>
-                    </div>
-
-                    <div class="coluna-25" style={{paddingTop:100}}>
-                        <h3>Refaça o Login para atualizar</h3>
                     </div>
                 </div>
 

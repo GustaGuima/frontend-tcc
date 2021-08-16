@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { login } from '../UserFunctions'
 import { Redirect } from 'react-router-dom'
+import $ from "jquery";
 
 class Login extends Component {
 
@@ -29,8 +30,13 @@ class Login extends Component {
         
         login(user).then(res => {
             if (res) {
+                $(".error-login").attr("hidden", true)
+                $("#message-error").text("");
                 window.location.reload(false)
                 this.props.history.push(`/home`)
+            } else {
+                $(".error-login").removeAttr("hidden")
+                $("#message-error").text("Email ou Senha de seu usuario estao incorretos");
             }
         })
     }
@@ -39,6 +45,11 @@ class Login extends Component {
         const login = (
             <div className='flex-login container-box-login'>
                 <div class='content-box-login'>
+
+                    <div hidden class="alert alert-danger error-login" role="alert">
+                        <p id="message-error"></p>
+                    </div>
+
                     <div className='col-md-4 mt-5 mx-auto'>
                         <form class='text-center' noValidate onSubmit={this.onSubmit}>
                             <h2 className='h1 mb-5 font-weight-bold'>Login</h2>

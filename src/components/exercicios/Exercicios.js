@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { encontrarExercicio } from '../ExercicioFunctions'
-import { exercicioRespondido } from '../ExercicioFunctions'
-import { questaoIncorreta } from '../UserFunctions'
-import { adicionarExperiencia } from '../UserFunctions'
+import { encontrarExercicio, exercicioRespondido } from '../ExercicioFunctions'
+import { questaoIncorreta, adicionarExperiencia, encontrarUsuario} from '../UserFunctions'
 import { Redirect } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 
@@ -28,6 +26,8 @@ class Exercicios extends Component {
 
             //Dados Usuario
             email: '',
+            tentativas: 0,
+            questoes_respondidas: 0,
             estaCorreta: '',
         }
         this.verificarReposta = this.verificarReposta.bind(this)
@@ -68,8 +68,16 @@ class Exercicios extends Component {
         if (tokenLogin) {
             const decodedLogin = jwt_decode(tokenLogin)
 
-            this.setState({
+            const user = {
                 email: decodedLogin.email
+            }
+
+            encontrarUsuario(user).then(res => {
+                this.setState({
+                    email: res.email,
+                    tentativas: res.tentativas,
+                    questoes_respondidas: res.questoes_respondidas,
+                })
             })
         }
     }
@@ -86,7 +94,8 @@ class Exercicios extends Component {
             const user = {
                 email: this.state.email,
                 experiencia: this.state.experiencia_fornecida,
-                pontuacao: this.state.pontuacao,        
+                pontuacao: this.state.pontuacao, 
+                exercicio_id: this.state.id
             }
             adicionarExperiencia(user)
 

@@ -68,7 +68,7 @@ export const ranking = alunos => {
 }
 export const encontrarUsuario = alunos => {
     return api
-    .get('users/encontrarUsuario', {
+    .post('users/encontrarUsuario', {
         email: alunos.email
     }).then(res => {
         return res.data

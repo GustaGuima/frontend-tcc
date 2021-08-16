@@ -10,10 +10,21 @@ body {
   background-color: #ffffff;
 }
 
+.container{
+  display: table;
+}
+
 .container-home{
   margin-top: 75px;
   width: 500px;
 }
+
+/* .exercicios-list {
+  display: flex;
+  flex-wrap: initial;
+  margin-right: -15px;
+  margin-left: -15px;
+} */
 
 .flex-box {
   display: flex;
@@ -31,6 +42,26 @@ body {
   height: 200px;
 }
 
+.error-login {
+  width: fit-content;
+  display: inline-flex;
+  margin: 0;
+}
+
+.exercicios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.itens-home {
+  display: flex;
+}
+
+.container-ranking{
+  padding-top: 80px;
+}
+
 .container-box-login {
   height: 700px;
 }
@@ -41,7 +72,9 @@ body {
 }
 
 .container-box {
-  height: 700px;
+  height: auto;
+  width: auto;
+  border-radius: 25px;
 }
 
 .content-box {
@@ -171,6 +204,11 @@ label {
   flex-flow: row wrap;
   }
 
+.lista-exercicios{
+  display: flex;
+  margin-left: 30px;
+}
+
   .isDisabled {
     color: currentColor;
     opacity: 0.5;
@@ -195,4 +233,63 @@ label {
   
   margin-left: 15%;
 }
-  
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+
+/* Centered section inside the top navigation */
+.topnav-centered {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress {
+  background: rgba(255,255,255,0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 20px;
+  width: 400px;
+}
+
+.progress-value {
+  animation: normal forwards;
+  box-shadow: 0 10px 40px -10px #fff;
+  border-radius: 100px;
+  background: #fff;
+  height: 20px;
+  width: 0;
+  margin-left: -10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.porcentagem {
+  margin-top: 10px
+}
+
+@keyframes load {
+  0% { width: 0; }
+  100% { width: 68%; }
+}
