@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Navbar from "../partials/Navbar";
 import { ranking } from "../UserFunctions";
 import { encontrarUsuario } from "../UserFunctions";
+import { Hidden } from "@material-ui/core";
 
 class Home extends Component {
   constructor() {
@@ -13,6 +14,7 @@ class Home extends Component {
       email: "",
       nivel: 1,
       experiencia: 0,
+      questoes_respondidas: 0,
       lists: [],
     };
   }
@@ -38,6 +40,7 @@ class Home extends Component {
           nivel: res.nivel,
           experiencia: res.experiencia,
           email: res.email,
+          questoes_respondidas: res.questoes_respondidas,
         });
       });
     }
@@ -50,34 +53,6 @@ class Home extends Component {
   render() {
     const home = (
       <div class="itens-home">
-        <div class="col-sm">
-          <div class="container-ranking">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-              <table class="table table-bordered table-striped mb-0">
-                <thead>
-                  <tr>
-                    <th>RANKING</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Pontuação</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.lists.map((alunos, index) => (
-                    <tr>
-                      <td>{alunos.nome}</td>
-                      <td>{alunos.pontuacao}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
         <div class="col-sm">
           <div class="container exercicios">
             <div className="container-home">
@@ -107,7 +82,11 @@ class Home extends Component {
                                   localStorage.setItem("exercicioToken", 1)
                                 }
                               >
-                                <img src="./img/exercicio1.jpg" alt=""></img>
+                                <img
+                                  class="img-exercicios"
+                                  src="./img/exercicio1.jpg"
+                                  alt=""
+                                ></img>
                               </button>
                             </a>
                             <div>
@@ -124,6 +103,7 @@ class Home extends Component {
                                 }
                               >
                                 <img
+                                  class="img-exercicios"
                                   src="./img/exercicio2-nivel1.jpg"
                                   alt=""
                                 ></img>
@@ -144,7 +124,7 @@ class Home extends Component {
                                   localStorage.setItem("exercicioToken", 3)
                                 }
                               >
-                                <img
+                                <img class="img-exercicios"
                                   src="./img/exercicio3-nivel1.jpg"
                                   alt=""
                                 ></img>
@@ -164,6 +144,7 @@ class Home extends Component {
                                 }
                               >
                                 <img
+                                  class="img-exercicios"
                                   src="./img/exercicio4-nivel1.jpg"
                                   alt=""
                                 ></img>
@@ -186,6 +167,7 @@ class Home extends Component {
                                 }
                               >
                                 <img
+                                  class="img-exercicios"
                                   src="./img/exercicio5-nivel1.jpg"
                                   alt=""
                                 ></img>
@@ -203,6 +185,7 @@ class Home extends Component {
                                 }
                               >
                                 <img
+                                  class="img-exercicios"
                                   src="./img/exercicio6-nivel1.jpg"
                                   alt=""
                                 ></img>
@@ -248,7 +231,11 @@ class Home extends Component {
                                     localStorage.setItem("exercicioToken", 7)
                                   }
                                 >
-                                  <img src="./img/exercicio1.jpg" alt=""></img>
+                                  <img
+                                    class="img-exercicios"
+                                    src="./img/exercicio1.jpg"
+                                    alt=""
+                                  ></img>
                                 </button>
                               </a>
                               <div>
@@ -270,6 +257,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio2-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -296,6 +284,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio3-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -320,6 +309,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio4-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -347,6 +337,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio5-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -369,6 +360,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio6-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -415,7 +407,11 @@ class Home extends Component {
                                     localStorage.setItem("exercicioToken", 13)
                                   }
                                 >
-                                  <img src="./img/exercicio1.jpg" alt=""></img>
+                                  <img
+                                    class="img-exercicios"
+                                    src="./img/exercicio1.jpg"
+                                    alt=""
+                                  ></img>
                                 </button>
                               </a>
                               <div>
@@ -437,6 +433,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio2-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -463,6 +460,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio3-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -487,6 +485,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio4-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -514,6 +513,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio5-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -536,6 +536,7 @@ class Home extends Component {
                                   }
                                 >
                                   <img
+                                    class="img-exercicios"
                                     src="./img/exercicio6-nivel1.jpg"
                                     alt=""
                                   ></img>
@@ -558,30 +559,99 @@ class Home extends Component {
 
         <div class="col-sm">
           <div class="container-ranking">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-              <table class="table table-bordered table-striped mb-0">
-                <thead>
+            <table class="table-ranking">
+              <thead>
+                <tr>
+                  <th style={{ fontSize: 20 }}>Ranking</th>
+                  <th style={{ fontSize: 18, color: "#949494" }}>PONTUAÇÃO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.lists.map((alunos, index) => (
                   <tr>
-                    <th>RANKING</th>
-                    <th></th>
+                    <td>
+                      <span style={{ fontSize: 15 }}>{alunos.nome}</span>
+                    </td>
+                    <td>
+                      <span style={{ fontSize: 15 }}>{alunos.pontuacao}</span>
+                    </td>
                   </tr>
-                </thead>
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Pontuação</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.lists.map((alunos, index) => (
-                    <tr>
-                      <td>{alunos.nome}</td>
-                      <td>{alunos.pontuacao}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="container-trofeus">
+            <table class="table-trofeus">
+              <thead>
+                <tr>
+                  <th style={{ fontSize: 20, color: "#949494" }}>TROFEUS</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.questoes_respondidas >= 6
+                          ? "./img/trofeu_bronze.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Questões respondidas corretamente{" "}
+                      {this.state.questoes_respondidas}/6
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.questoes_respondidas >= 12
+                          ? "./img/trofeu_prata.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Questões respondidas corretamente{" "}
+                      {this.state.questoes_respondidas}/12
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.questoes_respondidas >= 18
+                          ? "./img/trofeu_ouro.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Questões respondidas corretamente{" "}
+                      {this.state.questoes_respondidas}/18
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

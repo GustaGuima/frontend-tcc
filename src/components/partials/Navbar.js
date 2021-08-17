@@ -32,9 +32,8 @@ class Navbar extends Component {
           email: res.email,
         });
 
-        $(".progress-value").width(res.experiencia * 4)
-        if(res.experiencia > 0)
-            $(".porcentagem").html(res.experiencia + "%")
+        $(".progress-value").width(res.experiencia * 4);
+        if (res.experiencia > 0) $(".porcentagem").html(res.experiencia + "%");
       });
     }
   }
@@ -53,11 +52,14 @@ class Navbar extends Component {
           <ul class="navbar-nav">
             <li class="nav-item pl-2">
               <a class="navbar-brand" href="/profile">
-                <h4
-                  style={{ color: "white", fontSize: 25, fontStyle: "normal" }}
-                >
-                  Bem vindo, {this.state.nome}
-                </h4>
+                <p style={{ color: "white", fontSize: 13, marginBottom: 0 }}>
+                  Bem vindo,
+                </p>
+                <p style={{ marginBottom: 0 }}>
+                  <strong style={{ color: "white", fontSize: 14 }}>
+                    {this.state.nome}
+                  </strong>
+                </p>
               </a>
             </li>
           </ul>
@@ -65,7 +67,12 @@ class Navbar extends Component {
 
         <div className="topnav-centered">
           <div class="progress">
-            <div class="progress-value"><p class="porcentagem"></p></div>
+            <div class="progress-value">
+              <p class="porcentagem"></p>
+            </div>
+          </div>
+          <div>
+            <p style={{color: "#ffff", marginBottom: 0, marginLeft: 415, marginTop: -20}}>{this.state.nivel}</p>
           </div>
         </div>
 
@@ -75,7 +82,7 @@ class Navbar extends Component {
               <a href="/home" className="nav-link">
                 <button
                   type="button"
-                  style={{ fontSize: 20 }}
+                  style={{ fontSize: 15 }}
                   class="btn btn-light btn-sm"
                 >
                   Pagina Inicial
@@ -86,7 +93,7 @@ class Navbar extends Component {
               <a href="" onClick={this.logOut.bind(this)} className="nav-link">
                 <button
                   type="button"
-                  style={{ fontSize: 20 }}
+                  style={{ fontSize: 15 }}
                   class="btn btn-light btn-sm"
                 >
                   LogOut
