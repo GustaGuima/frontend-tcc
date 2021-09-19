@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import { encontrarUsuario } from "../UserFunctions";
 import $ from "jquery";
+import { Row } from "react-bootstrap";
 
 class Navbar extends Component {
   constructor() {
@@ -17,6 +18,10 @@ class Navbar extends Component {
 
   componentDidMount() {
     const token = localStorage.usertoken;
+    if (!token) {
+      this.props.history.push(`/login`);
+    }
+
     if (token) {
       const decoded = jwt_decode(token);
 
@@ -50,8 +55,31 @@ class Navbar extends Component {
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-dark main-navigation">
         <div class="navbar">
           <ul class="navbar-nav">
-            <li class="nav-item pl-2">
-              <a class="navbar-brand" href="/profile">
+            <li
+              class="nav-item pl-2"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <a href="/profile"> 
+                <button
+                  type="button"
+                  style={{ width: "auto", height: "auto", borderRadius: 30 }}
+                  class="btn btn-light btn-sm"
+                >
+                  <img
+                    src="./img/profile-icon.png"
+                    style={{ width: 35, height: 35, borderRadius: 0 }}
+                  ></img>
+                </button>
+              </a>
+              <a
+                class="navbar-brand"
+                href="/profile"
+                style={{ marginLeft: 15 }}
+              >
                 <p style={{ color: "white", fontSize: 13, marginBottom: 0 }}>
                   Bem vindo,
                 </p>
@@ -72,7 +100,16 @@ class Navbar extends Component {
             </div>
           </div>
           <div>
-            <p style={{color: "#ffff", marginBottom: 0, marginLeft: 415, marginTop: -20}}>{this.state.nivel}</p>
+            <p
+              style={{
+                color: "#ffff",
+                marginBottom: 0,
+                marginLeft: 415,
+                marginTop: -20,
+              }}
+            >
+              {this.state.nivel}
+            </p>
           </div>
         </div>
 
@@ -82,10 +119,13 @@ class Navbar extends Component {
               <a href="/home" className="nav-link">
                 <button
                   type="button"
-                  style={{ fontSize: 15 }}
+                  style={{ width: 50, height: 35 }}
                   class="btn btn-light btn-sm"
                 >
-                  Pagina Inicial
+                  <img
+                    src="./img/home-icon.jpg"
+                    style={{ width: 20, height: 20, borderRadius: 0 }}
+                  ></img>
                 </button>
               </a>
             </li>
@@ -93,10 +133,13 @@ class Navbar extends Component {
               <a href="" onClick={this.logOut.bind(this)} className="nav-link">
                 <button
                   type="button"
-                  style={{ fontSize: 15 }}
-                  class="btn btn-light btn-sm"
+                  style={{ width: 50, height: 35, borderRadius: 15 }}
+                  class="btn btn-danger btn-sm"
                 >
-                  LogOut
+                  <img
+                    src="./img/logout.png"
+                    style={{ width: 20, height: 20, borderRadius: 0 }}
+                  ></img>
                 </button>
               </a>
             </li>
@@ -104,8 +147,7 @@ class Navbar extends Component {
         </div>
       </nav>
     );
-
-    return localStorage.usertoken ? userLink : null;
+    return userLink;
   }
 }
 

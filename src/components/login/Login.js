@@ -16,6 +16,12 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
+    componentDidMount(){
+        if(localStorage.usertoken){
+            this.props.history.push(`/home`)
+        }
+    }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -41,15 +47,15 @@ class Login extends Component {
         })
     }
 
+
+
     render() {
         const login = (
             <div className='flex-login container-box-login'>
                 <div class='content-box-login'>
-
                     <div hidden class="alert alert-danger error-login" role="alert">
                         <p id="message-error"></p>
                     </div>
-
                     <div className='col-md-4 mt-5 mx-auto'>
                         <form class='text-center' noValidate onSubmit={this.onSubmit}>
                             <h2 className='h1 mb-5 font-weight-bold'>Login</h2>
@@ -72,11 +78,7 @@ class Login extends Component {
                 </div>
             </div>
         )
-
-
-        return (
-            localStorage.usertoken ? <Redirect to='/home'></Redirect> : login
-        )
+        return login
     }
 
 }

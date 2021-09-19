@@ -15,6 +15,12 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
+    componentDidMount(){
+        if(localStorage.usertoken){
+            this.props.history.push(`/home`)
+        }
+    }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -34,9 +40,9 @@ class Register extends Component {
     }
 
     render() {
-        return (
-            <div className="flex-login container-box">
-                <div class='content-box'>
+        const register =  (
+            <div className="flex-register">
+                <div class='content-box-register'>
                     <div className="row">
                         <div className="col-md-6 mt-5 mx-auto">
                             <form noValidate onSubmit={this.onSubmit}>
@@ -73,10 +79,11 @@ class Register extends Component {
                                 <div className='text-center'>
                                     <button
                                         type="submit"
-                                        className="btn btn-outline-dark">
+                                        className="btn btn-outline-success">
                                         Cadastrar
                                 </button>
-                                    <a href='/login'>
+                                    <a style={{marginLeft: 15}} 
+                                    href='/login'>
                                         <button
                                             type="button"
                                             className="btn btn-outline-dark">
@@ -90,6 +97,7 @@ class Register extends Component {
                 </div>
             </div>
         )
+        return register
     }
 }
 

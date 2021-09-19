@@ -66,6 +66,7 @@ export const ranking = alunos => {
         console.log(err)
     })
 }
+
 export const encontrarUsuario = alunos => {
     return api
     .post('users/encontrarUsuario', {

@@ -24,3 +24,14 @@ export const exercicioRespondido = experiencia => {
         console.log(err)
     })
 }
+
+export const exercicios = exercicio => {
+    return api
+    .get('exercicio/exercicios', {
+    }).then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}

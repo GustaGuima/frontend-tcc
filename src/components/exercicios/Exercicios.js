@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { encontrarExercicio, exercicioRespondido } from '../ExercicioFunctions'
 import { questaoIncorreta, adicionarExperiencia, encontrarUsuario} from '../UserFunctions'
 import { Redirect } from 'react-router-dom'
+import Typical from 'react-typical'
 import jwt_decode from 'jwt-decode'
 
 class Exercicios extends Component {
@@ -23,6 +24,7 @@ class Exercicios extends Component {
             experiencia_fornecida: 0,
             pontuacao: 0,
             respondido: 0,
+            sequencia_certas: 0,
 
             //Dados Usuario
             email: '',
@@ -35,6 +37,10 @@ class Exercicios extends Component {
     }
 
     componentDidMount() {
+
+        if(!localStorage.usertoken){
+            this.props.history.push(`/login`)
+        }
 
         console.log(localStorage.exercicioToken)
         const exercicio = {
@@ -77,6 +83,7 @@ class Exercicios extends Component {
                     email: res.email,
                     tentativas: res.tentativas,
                     questoes_respondidas: res.questoes_respondidas,
+                    sequencia_certas: res.sequencia_certas
                 })
             })
         }
@@ -95,14 +102,17 @@ class Exercicios extends Component {
                 email: this.state.email,
                 experiencia: this.state.experiencia_fornecida,
                 pontuacao: this.state.pontuacao, 
-                exercicio_id: this.state.id
+                exercicio_id: this.state.id,
+                sequencia_certas: this.state.sequencia_certas += 1
             }
+            
             adicionarExperiencia(user)
 
         } else {
             const user = {
                 email: this.state.email
             }
+            this.state.sequencia_certas = 0;
             questaoIncorreta(user)
         }
 
@@ -110,28 +120,33 @@ class Exercicios extends Component {
     }
 
     render() {
-        const home = (
+        const exercicios = (
             <div>
                 <div class="jumbotron jumbotron-fluid mt-5">
                     <div class="container">
                         <center>
                             <h2 class="display-4">{this.state.titulo}</h2>
                             <hr class="my-4"></hr>
-                            <p class="lead">{this.state.enunciado}</p>
+                            <p class="lead">
+                                <Typical
+                                    steps={[this.state.enunciado]}
+                                    wrapper="p"
+                                />
+                            </p>
                         </center>
                     </div>
                     <hr class="my-4"></hr>
                     <div class="container mt-5">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.resposta}>{this.state.resposta}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.resposta}>{this.state.resposta}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta1}>{this.state.respostaIncorreta1}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta1}>{this.state.respostaIncorreta1}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta2}>{this.state.respostaIncorreta2}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta2}>{this.state.respostaIncorreta2}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta3}>{this.state.respostaIncorreta3}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta3}>{this.state.respostaIncorreta3}</button>
                     </div>
 
 
@@ -154,7 +169,7 @@ class Exercicios extends Component {
                                     <h6>{(this.state.estaCorreta === this.state.respostaCorreta) ? 'Continue nesse ritmo' : ''}</h6>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href='/home'><button type='button' class='btn btn-dark'>Sair</button></a>
+                                    <a href='/home'><button type='button' class='btn btn-danger'>Sair</button></a>
                                     {((this.state.respondido === 1)? '' : (this.state.estaCorreta === this.state.respostaCorreta) ? <a href='/exercicio'><button type='button' class='btn btn-success' onClick={() => localStorage.setItem('exercicioToken', this.state.id += 1)}>Proxima</button></a> : <a href='/exercicio'><button type='button' class='btn btn-danger'>Tente Novamente</button></a>)}
                                 </div>
                             </div>
@@ -166,7 +181,7 @@ class Exercicios extends Component {
                 </div>
             </div>
         )
-        return localStorage.usertoken ? home : <Redirect to='/login'></Redirect>
+        return exercicios
     }
 }
 

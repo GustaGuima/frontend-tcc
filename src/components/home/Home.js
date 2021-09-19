@@ -5,6 +5,8 @@ import Navbar from "../partials/Navbar";
 import { ranking } from "../UserFunctions";
 import { encontrarUsuario } from "../UserFunctions";
 import { Hidden } from "@material-ui/core";
+import { exercicios } from "../ExercicioFunctions";
+import $ from "jquery";
 
 class Home extends Component {
   constructor() {
@@ -15,16 +17,67 @@ class Home extends Component {
       nivel: 1,
       experiencia: 0,
       questoes_respondidas: 0,
+      pontuacao: 0,
       lists: [],
+      nivel1: [],
+      nivel2: [],
+      nivel3: []
     };
   }
 
   componentDidMount() {
+    if (!localStorage.usertoken) {
+      this.props.history.push(`/login`);
+    }
+
     ranking().then((alunos) => {
       this.setState({
         lists: alunos,
       });
     });
+
+    exercicios().then((exercicio) => {
+      const nivel1 = []
+      const nivel2 = []
+      const nivel3 = []
+
+      for(let i=0; i<exercicio.length; i++){
+        if(exercicio[i].nivel == 1){
+          nivel1.push(exercicio[i])
+        }
+        if(exercicio[i].nivel == 2){
+          nivel2.push(exercicio[i])
+        }
+        if(exercicio[i].nivel == 3){
+          nivel3.push(exercicio[i])
+        }
+      }
+
+      this.setState({
+        nivel1: nivel1,
+        nivel2: nivel2,
+        nivel3: nivel3
+      })
+
+      if(this.state.nivel1.length == 0){
+        $(".nivel1").attr("style","display: none")
+      } else{
+        $(".nivel1").removeAttr("style")
+      }
+
+      if(this.state.nivel2.length == 0){
+        $(".nivel2").attr("style","display: none")
+      } else{
+        $(".nivel2").removeAttr("style")
+      }
+
+      if(this.state.nivel3.length == 0){
+        $(".nivel3").attr("style","display: none")
+      } else{
+        $(".nivel3").removeAttr("style")
+      }
+
+    })
 
     const token = localStorage.usertoken;
     if (token) {
@@ -41,6 +94,7 @@ class Home extends Component {
           experiencia: res.experiencia,
           email: res.email,
           questoes_respondidas: res.questoes_respondidas,
+          pontuacao: res.pontuacao,
         });
       });
     }
@@ -61,8 +115,8 @@ class Home extends Component {
             <div class="linha">
               <div class="coluna-50">
                 <div class="mt-5">
-                  <div class="pt-5">
-                    <h2>Nivel 1</h2>
+                  <div class="nivel-exercicios nivel1">
+                    <p style={{color: "#fafafa", marginTop: 5, fontSize: 25}}>Nivel 1</p>
                   </div>
                   <grid
                     className="container-box"
@@ -72,129 +126,32 @@ class Home extends Component {
                     <div className="flex-box container-box">
                       <div class="container">
                         <div class="lista-exercicios">
-                          <div class="col-sm mt-5">
-                            <a href="/exercicio">
-                              <button
-                                class="button image-button"
-                                type="button"
-                                value="1"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 1)
-                                }
-                              >
-                                <img
-                                  class="img-exercicios"
-                                  src="./img/exercicio1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <div>
-                              <label class="pl-4">Exercicio 1</label>
+                          {this.state.nivel1.map((exercicio, index) => (
+                            <div class="col-sm mt-5">
+                              <a href="/exercicio">
+                                <button
+                                  class="button image-button"
+                                  type="button"
+                                  value="1"
+                                  onClick={() =>
+                                    localStorage.setItem(
+                                      "exercicioToken",
+                                      exercicio.id
+                                    )
+                                  }
+                                >
+                                  <img
+                                    class="img-exercicios"
+                                    src="./img/exercicio1.jpg"
+                                    alt=""
+                                  ></img>
+                                </button>
+                              </a>
+                              <div>
+                                <label class="pl-4">{exercicio.titulo}</label>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-sm mt-5 ">
-                            <a href="/exercicio">
-                              <button
-                                class="button image-button"
-                                type="button"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 2)
-                                }
-                              >
-                                <img
-                                  class="img-exercicios"
-                                  src="./img/exercicio2-nivel1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <div>
-                              <label class="pl-4">Exercicio 2</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="lista-exercicios">
-                          <div class="col-sm mt-2">
-                            <a href="/exercicio">
-                              <button
-                                class="button image-button"
-                                type="button"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 3)
-                                }
-                              >
-                                <img class="img-exercicios"
-                                  src="./img/exercicio3-nivel1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <div>
-                              <label class="pl-4">Exercicio 3</label>
-                            </div>
-                          </div>
-                          <div class="col-sm mt-2">
-                            <a href="/exercicio">
-                              <button
-                                class="button image-button"
-                                type="button"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 4)
-                                }
-                              >
-                                <img
-                                  class="img-exercicios"
-                                  src="./img/exercicio4-nivel1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <div>
-                              <label class="pl-4">Exercicio 4</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="lista-exercicios">
-                          <div class="col-sm mt-2">
-                            <a href="/exercicio">
-                              <button
-                                href="/exercicio"
-                                class="button image-button"
-                                type="button"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 5)
-                                }
-                              >
-                                <img
-                                  class="img-exercicios"
-                                  src="./img/exercicio5-nivel1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <label class="pl-4">Exercicio 5</label>
-                          </div>
-                          <div class="col-sm mt-2">
-                            <a href="/exercicio">
-                              <button
-                                class="button image-button"
-                                type="button"
-                                onClick={() =>
-                                  localStorage.setItem("exercicioToken", 6)
-                                }
-                              >
-                                <img
-                                  class="img-exercicios"
-                                  src="./img/exercicio6-nivel1.jpg"
-                                  alt=""
-                                ></img>
-                              </button>
-                            </a>
-                            <div>
-                              <label class="pl-4">Exercicio 6</label>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -206,29 +163,29 @@ class Home extends Component {
             <div class="linha">
               <div class="coluna-50">
                 <div class="mt-5">
-                  <h2>Nivel 2</h2>
-                  <div className="flex-box container-box">
-                    <grid
-                      className="container-box"
-                      direction="row"
-                      justify="center"
-                    >
-                      <div className="flex-box container-box">
-                        <div class="container">
-                          <div class="lista-exercicios">
+                  <div class="nivel-exercicios nivel2">
+                    <p style={{color: "#fafafa", marginTop: 5, fontSize: 25}}>Nivel 2</p>
+                  </div>
+                  <grid
+                    className="container-box"
+                    direction="row"
+                    justify="center"
+                  >
+                    <div className="flex-box container-box">
+                      <div class="container">
+                        <div class="lista-exercicios">
+                          {this.state.nivel2.map((exercicio, index) => (
                             <div class="col-sm mt-5">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
+                              <a href="/exercicio" class={this.state.nivel >= 2 ? "" : "isDisabled"}>
                                 <button
                                   class="button image-button"
                                   type="button"
                                   value="1"
                                   onClick={() =>
-                                    localStorage.setItem("exercicioToken", 7)
+                                    localStorage.setItem(
+                                      "exercicioToken",
+                                      exercicio.id
+                                    )
                                   }
                                 >
                                   <img
@@ -239,142 +196,14 @@ class Home extends Component {
                                 </button>
                               </a>
                               <div>
-                                <label class="pl-4">Exercicio 7</label>
+                                <label class="pl-4">{exercicio.titulo}</label>
                               </div>
                             </div>
-                            <div class="col-sm mt-5 ">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 8)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio2-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 8</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lista-exercicios">
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 9)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio3-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 9</label>
-                              </div>
-                            </div>
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 10)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio4-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 10</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lista-exercicios">
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  href="/exercicio"
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 11)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio5-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <label class="pl-4">Exercicio 11</label>
-                            </div>
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 2 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 12)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio6-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 12</label>
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
-                    </grid>
-                  </div>
+                    </div>
+                  </grid>
                 </div>
               </div>
             </div>
@@ -382,29 +211,29 @@ class Home extends Component {
             <div class="linha">
               <div class="coluna-50">
                 <div class="mt-5">
-                  <h2>Nivel 3</h2>
-                  <div className="flex-box container-box">
-                    <grid
-                      className="container-box"
-                      direction="row"
-                      justify="center"
-                    >
-                      <div className="flex-box container-box">
-                        <div class="container">
-                          <div class="lista-exercicios">
+                  <div class="nivel-exercicios nivel3">
+                    <p style={{color: "#fafafa", marginTop: 5, fontSize: 25}}>Nivel 3</p>
+                  </div>
+                  <grid
+                    className="container-box"
+                    direction="row"
+                    justify="center"
+                  >
+                    <div className="flex-box container-box">
+                      <div class="container">
+                        <div class="lista-exercicios">
+                          {this.state.nivel3.map((exercicio, index) => (
                             <div class="col-sm mt-5">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
+                              <a href="/exercicio" class={this.state.nivel >= 3 ? "" : "isDisabled"}>
                                 <button
                                   class="button image-button"
                                   type="button"
                                   value="1"
                                   onClick={() =>
-                                    localStorage.setItem("exercicioToken", 13)
+                                    localStorage.setItem(
+                                      "exercicioToken",
+                                      exercicio.id
+                                    )
                                   }
                                 >
                                   <img
@@ -415,142 +244,14 @@ class Home extends Component {
                                 </button>
                               </a>
                               <div>
-                                <label class="pl-4">Exercicio 13</label>
+                                <label class="pl-4">{exercicio.titulo}</label>
                               </div>
                             </div>
-                            <div class="col-sm mt-5 ">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 14)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio2-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 14</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lista-exercicios">
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 15)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio3-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 15</label>
-                              </div>
-                            </div>
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 16)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio4-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 16</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lista-exercicios">
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  href="/exercicio"
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 17)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio5-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <label class="pl-4">Exercicio 17</label>
-                            </div>
-                            <div class="col-sm mt-2">
-                              <a
-                                class={
-                                  this.state.nivel >= 3 ? "" : "isDisabled"
-                                }
-                                href="/exercicio"
-                              >
-                                <button
-                                  class="button image-button"
-                                  type="button"
-                                  onClick={() =>
-                                    localStorage.setItem("exercicioToken", 18)
-                                  }
-                                >
-                                  <img
-                                    class="img-exercicios"
-                                    src="./img/exercicio6-nivel1.jpg"
-                                    alt=""
-                                  ></img>
-                                </button>
-                              </a>
-                              <div>
-                                <label class="pl-4">Exercicio 18</label>
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
-                    </grid>
-                  </div>
+                    </div>
+                  </grid>
                 </div>
               </div>
             </div>
@@ -650,14 +351,73 @@ class Home extends Component {
                     </p>
                   </td>
                 </tr>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.questoes_respondidas >= 18
+                          ? "./img/trofeu_ouro.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Questões respondidas corretamente{" "}
+                      {this.state.questoes_respondidas}/18
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.questoes_respondidas >= 18
+                          ? "./img/trofeu_ouro.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Questões respondidas corretamente{" "}
+                      {this.state.questoes_respondidas}/18
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      style={{ width: 60, height: 60 }}
+                      class="card-img-top trofeu"
+                      src={
+                        this.state.pontuacao >= 5000
+                          ? "./img/5000_pts.png"
+                          : "./img/trofeu_escondido.png"
+                      }
+                      alt="Card image cap"
+                    ></img>
+                  </td>
+                  <td>
+                    <p style={{ fontSize: 15 }} class="card-title">
+                      Consiga 5000 de pontuação total {this.state.pontuacao}
+                      /5000
+                    </p>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     );
-
-    return localStorage.usertoken ? home : <Redirect to="/login"></Redirect>;
+    return home;
   }
 }
 
