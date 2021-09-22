@@ -36,6 +36,15 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
+.exercicio-box {
+  display: flex;
+  border-radius: 5%;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 50%);
+  flex-direction: column;
+  justify-content: center;
+}
+
 .flex-login {
   display: flex;
   align-items: center;
@@ -94,6 +103,18 @@ body {
   margin-top: 200px;
 }
 
+.content-box-register-exercise {
+  text-align: center;
+  width: 50%;
+  margin-top: 100px;
+}
+
+.form-create-exercise-two {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .container-box {
   height: auto;
   width: auto;
@@ -128,6 +149,36 @@ body {
   justify-content: center;
 }
 
+.star-exercicio{
+  width: 35px;
+  height: 35px;
+  border-radius: 0px;
+  position: relative;
+  top: 55px;
+  right: 45px;
+}
+
+.display-none{
+  display: none;
+}
+
+.table-trofeu-icon{
+  border-radius: 0%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: -5px;
+}
+
+.create-exercise-icon{
+  width: 50px;
+    height: 50px;
+    border-radius: 0px;
+    position: relative;
+    left: -10px;
+    margin-top: -12px;
+}
+
 .box-estatistica {
   width: 25%;
   height: 75px;
@@ -147,6 +198,12 @@ body {
 .divisoria-perfil {
   border: 1px solid;
   border-color: #dedede;
+}
+
+.divisoria-exercicio {
+  border: 1px solid;
+  border-color: #dedede;
+  width: 90%;
 }
 
 .flex-box-pergunta {
@@ -234,6 +291,26 @@ label {
 }
 
 .image-button:focus {
+  outline: 0px dotted;
+  outline: 0px auto -webkit-focus-ring-color;
+}
+
+.create-exercise-button{
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  position: relative;
+  left: 96%;
+  top: -20px;
+}
+
+
+.create-exercise-button:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+}
+
+.create-exercise-button:focus {
   outline: 0px dotted;
   outline: 0px auto -webkit-focus-ring-color;
 }
@@ -372,7 +449,11 @@ label {
 .lista-exercicios {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 25px;
+}
+
+.form-create-exercise {
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .nivel-exercicios {
@@ -476,4 +557,25 @@ label {
   100% {
     width: 68%;
   }
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #343a40; /* Blue */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 35%;
 }

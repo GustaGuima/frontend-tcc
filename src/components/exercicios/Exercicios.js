@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { encontrarExercicio, exercicioRespondido } from '../ExercicioFunctions'
 import { questaoIncorreta, adicionarExperiencia, encontrarUsuario} from '../UserFunctions'
-import { Redirect } from 'react-router-dom'
-import Typical from 'react-typical'
 import jwt_decode from 'jwt-decode'
+import $ from "jquery";
 
 class Exercicios extends Component {
 
@@ -27,6 +26,8 @@ class Exercicios extends Component {
             sequencia_certas: 0,
 
             //Dados Usuario
+            id_aluno: 0,
+            nivel_aluno: 0,
             email: '',
             tentativas: 0,
             questoes_respondidas: 0,
@@ -41,8 +42,6 @@ class Exercicios extends Component {
         if(!localStorage.usertoken){
             this.props.history.push(`/login`)
         }
-
-        console.log(localStorage.exercicioToken)
         const exercicio = {
             id: localStorage.exercicioToken
         }
@@ -80,24 +79,24 @@ class Exercicios extends Component {
 
             encontrarUsuario(user).then(res => {
                 this.setState({
+                    id_aluno: res.id,
                     email: res.email,
+                    nivel_aluno: res.nivel,
                     tentativas: res.tentativas,
                     questoes_respondidas: res.questoes_respondidas,
                     sequencia_certas: res.sequencia_certas
                 })
+                if(this.state.nivel_aluno ==  null){
+                    console.log('entrando')
+                    $(".respostas-condition").prop('disabled', true)
+                }
             })
         }
     }
 
     verificarReposta(e) {
-
-
         this.setState({ estaCorreta: e.target.value })
-
-        console.log(this.state.email)
-
         if (e.target.value === this.state.respostaCorreta) {
-
             const user = {
                 email: this.state.email,
                 experiencia: this.state.experiencia_fornecida,
@@ -105,9 +104,13 @@ class Exercicios extends Component {
                 exercicio_id: this.state.id,
                 sequencia_certas: this.state.sequencia_certas += 1
             }
-            
+            const respondido = {
+                aluno_id: this.state.id_aluno,
+                exercicio_id: this.state.id,
+                respondido: 1
+            }
+            exercicioRespondido(respondido)
             adicionarExperiencia(user)
-
         } else {
             const user = {
                 email: this.state.email
@@ -115,38 +118,38 @@ class Exercicios extends Component {
             this.state.sequencia_certas = 0;
             questaoIncorreta(user)
         }
-
         e.preventDefault()
     }
 
     render() {
         const exercicios = (
             <div>
-                <div class="jumbotron jumbotron-fluid mt-5">
-                    <div class="container">
+                <div class="nivel-exercicios">
+                    <center>
+                      <p
+                        style={{ color: "#fafafa", marginTop: 5, fontSize: 25 }}>
+                        {this.state.titulo}
+                      </p>
+                      </center>
+                </div>
+                <div class="exercicio-box container-box">
+                    <div class="container mt-5">
                         <center>
-                            <h2 class="display-4">{this.state.titulo}</h2>
-                            <hr class="my-4"></hr>
-                            <p class="lead">
-                                <Typical
-                                    steps={[this.state.enunciado]}
-                                    wrapper="p"
-                                />
-                            </p>
+                            <p class="lead">{this.state.enunciado}</p>
                         </center>
                     </div>
-                    <hr class="my-4"></hr>
+                    <hr class="divisoria-exercicio"></hr>
                     <div class="container mt-5">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.resposta}>{this.state.resposta}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block respostas-condition" value={this.state.resposta}>{this.state.resposta}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta1}>{this.state.respostaIncorreta1}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block respostas-condition" value={this.state.respostaIncorreta1}>{this.state.respostaIncorreta1}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta2}>{this.state.respostaIncorreta2}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block respostas-condition" value={this.state.respostaIncorreta2}>{this.state.respostaIncorreta2}</button>
                     </div>
                     <div class="container mt-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block" value={this.state.respostaIncorreta3}>{this.state.respostaIncorreta3}</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-resposta" data-backdrop="static" data-keyboard="false" onClick={this.verificarReposta} class="btn btn-dark btn-lg btn-block respostas-condition" value={this.state.respostaIncorreta3}>{this.state.respostaIncorreta3}</button>
                     </div>
 
 

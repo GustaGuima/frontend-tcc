@@ -59,7 +59,10 @@ class Profile extends Component {
 
   render() {
     const data = [
-      { name: "Tentativas", value: this.state.tentativas },
+      {
+        name: "Incorretas",
+        value: this.state.tentativas - this.state.questoes_respondidas,
+      },
       { name: "Corretas", value: this.state.questoes_respondidas },
     ];
 
@@ -74,7 +77,7 @@ class Profile extends Component {
         <div className="container-perfil">
           <div className="informacoes-usuario">
             <strong style={{ fontSize: 25 }}>{this.state.nome}</strong>
-            <button className="btn btn-outline-warning">Editar</button>
+           {/*  <button className="btn btn-outline-warning">Editar</button> */}
           </div>
           <div>
             <p style={{ color: "#c3c3c3" }}>{this.state.email}</p>
@@ -119,7 +122,9 @@ class Profile extends Component {
           </div>
         </div>
         <hr className="divisoria-perfil"></hr>
-        <div class={this.state.tentativas == 0? "div_chart_none" : "div_chart"}>
+        <div
+          class={this.state.tentativas == 0 ? "div_chart_none" : "div_chart"}
+        >
           <PieChart width={400} height={400}>
             <Pie
               data={data}
@@ -170,7 +175,19 @@ class Profile extends Component {
               <table class="table-trofeus">
                 <thead>
                   <tr>
-                    <th style={{ fontSize: 20, color: "#949494" }}>TROFEUS</th>
+                    <th
+                      style={{
+                        display: "flex",
+                        fontSize: 20,
+                        color: "#949494",
+                      }}
+                    >
+                      <img
+                        class="table-trofeu-icon"
+                        src="./img/icon-trofeu-table.png"
+                      ></img>
+                      TROFEUS
+                    </th>
                     <th></th>
                   </tr>
                 </thead>
@@ -191,7 +208,9 @@ class Profile extends Component {
                     <td>
                       <p style={{ fontSize: 15 }} class="card-title">
                         Questões respondidas corretamente{" "}
-                        {this.state.questoes_respondidas}/6
+                        {this.state.questoes_respondidas >= 6
+                          ? "6/6"
+                          : this.state.questoes_respondidas + "/6"}
                       </p>
                     </td>
                   </tr>
@@ -211,7 +230,9 @@ class Profile extends Component {
                     <td>
                       <p style={{ fontSize: 15 }} class="card-title">
                         Questões respondidas corretamente{" "}
-                        {this.state.questoes_respondidas}/12
+                        {this.state.questoes_respondidas >= 12
+                          ? "12/12"
+                          : this.state.questoes_respondidas + "/12"}
                       </p>
                     </td>
                   </tr>
@@ -231,47 +252,9 @@ class Profile extends Component {
                     <td>
                       <p style={{ fontSize: 15 }} class="card-title">
                         Questões respondidas corretamente{" "}
-                        {this.state.questoes_respondidas}/18
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        style={{ width: 60, height: 60 }}
-                        class="card-img-top trofeu"
-                        src={
-                          this.state.questoes_respondidas >= 18
-                            ? "./img/trofeu_ouro.png"
-                            : "./img/trofeu_escondido.png"
-                        }
-                        alt="Card image cap"
-                      ></img>
-                    </td>
-                    <td>
-                      <p style={{ fontSize: 15 }} class="card-title">
-                        Questões respondidas corretamente{" "}
-                        {this.state.questoes_respondidas}/18
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        style={{ width: 60, height: 60 }}
-                        class="card-img-top trofeu"
-                        src={
-                          this.state.questoes_respondidas >= 18
-                            ? "./img/trofeu_ouro.png"
-                            : "./img/trofeu_escondido.png"
-                        }
-                        alt="Card image cap"
-                      ></img>
-                    </td>
-                    <td>
-                      <p style={{ fontSize: 15 }} class="card-title">
-                        Questões respondidas corretamente{" "}
-                        {this.state.questoes_respondidas}/18
+                        {this.state.questoes_respondidas >= 18
+                          ? "18/18"
+                          : this.state.questoes_respondidas + "/18"}
                       </p>
                     </td>
                   </tr>
@@ -290,8 +273,10 @@ class Profile extends Component {
                     </td>
                     <td>
                       <p style={{ fontSize: 15 }} class="card-title">
-                        Consiga 5000 de pontuação total {this.state.pontuacao}
-                        /5000
+                        Consiga 5000 de pontuação total{" "}
+                        {this.state.pontuacao >= 5000
+                          ? "5000/5000"
+                          : this.state.pontuacao + "/5000"}
                       </p>
                     </td>
                   </tr>

@@ -6,6 +6,7 @@ import Register from './components/login/Register'
 import Profile from './components/home/Profile'
 import Home from './components/home/Home'
 import Exercicios from './components/exercicios/Exercicios'
+import CreateExercise from './components/exercicios/CreateExercise';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/home' component={Home} />
             <Route exact path='/exercicio' component={Exercicios} />
+            <Route exact path='/createExercise' component={CreateExercise} />
           </div>
         </div>
       </Router>
