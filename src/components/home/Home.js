@@ -410,6 +410,28 @@ class Home extends Component {
                   </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td>
+                      <img
+                        style={{ width: 60, height: 60 }}
+                        class="card-img-top trofeu"
+                        src={
+                          this.state.questoes_respondidas >= 1
+                            ? "./img/Primeira_de_muitas.png"
+                            : "./img/trofeu_escondido.png"
+                        }
+                        alt="Card image cap"
+                      ></img>
+                    </td>
+                    <td>
+                      <p style={{ fontSize: 15 }} class="card-title">
+                        Questões respondidas corretamente{" "}
+                        {this.state.questoes_respondidas >= 1
+                          ? "1/1"
+                          : this.state.questoes_respondidas + "/1"}
+                      </p>
+                    </td>
+                  </tr>
                   <tr>
                     <td>
                       <img
